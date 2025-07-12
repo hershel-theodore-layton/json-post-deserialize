@@ -1,0 +1,7 @@
+{
+    "chain_path": "tests/test-chain/chain.hack",
+    "chain_type": "\\HTL\\TestChain\\Chain",
+    "codegen_namespace": "HTL\\Project_oQ5p297cYuT0\\GeneratedTestChain",
+    "license_comment": "/** json-post-deserialize is MIT licensed, see /LICENSE. */",
+    "run_file": "tests/test-chain/run.hack"
+}

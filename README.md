@@ -13,10 +13,18 @@ Go, or JavaScript certainly don't.
 
 ## How?
 
-After calling `\json_decode_pure()`, you should check the
+After calling `\json_decode_with_error()`, you should check the
 `$error` variable. If this is `null`, you might still have
 parsed invalid JSON. `\HTL\JsonCheck\quick_reject(string $json)`
 will let you know that this happened. `quick_reject()` does
 not return an error for many invalid JSON documents, but
 it does return an error for every invalid JSON document that
-gets past `\json_decode_pure()`.
+gets past `\json_decode_with_error()`.
+
+## Why do this in Hack?
+
+There is no function accessible to Hack that can validate
+a JSON document. If you want to call a real JSON parser,
+you'd need to call an extenal process. The overhead of
+copying the json string to the external process outweighs
+the cost of the hot loop in `quick_reject()`.
