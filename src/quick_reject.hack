@@ -30,6 +30,7 @@ function quick_reject(string $json)[]: Result {
       return Result::NO_DOCUMENT;
     case _Private\State::IN_NUMBER:
     case _Private\State::NEUTRAL:
+    case _Private\State::ZERO:
       return Result::OK;
     case _Private\State::ESCAPE:
     case _Private\State::IN_STRING:
