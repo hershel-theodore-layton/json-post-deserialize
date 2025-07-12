@@ -25,6 +25,6 @@ gets past `\json_decode_with_error()`.
 
 There is no function accessible to Hack that can validate
 a JSON document. If you want to call a real JSON parser,
-you'd need to call an extenal process. The overhead of
+you'd need to call an external process. The overhead of
 copying the json string to the external process outweighs
 the cost of the hot loop in `quick_reject()`.
