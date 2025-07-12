@@ -18,6 +18,7 @@ HACK;
 
   $whitespace = " \n\r\t";
   $digit = '0123456789';
+  $non_zero_digit = '123456789';
   // All the letters from true, false, null
   $constants = 'truefalsnu';
   // '{}[]' Start and end of object/array.
@@ -30,7 +31,8 @@ HACK;
       $whitespace => State::NEUTRAL,
       '"' => State::IN_STRING,
       '-' => State::MINUS,
-      $digit => State::IN_NUMBER,
+      '0' => State::ZERO,
+      $non_zero_digit => State::IN_NUMBER,
       $structures => State::NEUTRAL,
       $constants => State::NEUTRAL,
     ])
@@ -40,7 +42,8 @@ HACK;
         $whitespace => State::INITIAL,
         '"' => State::IN_STRING,
         '-' => State::MINUS,
-        $digit => State::IN_NUMBER,
+        '0' => State::ZERO,
+        $non_zero_digit => State::IN_NUMBER,
         $structures => State::NEUTRAL,
         $constants => State::NEUTRAL,
       ],
@@ -63,8 +66,23 @@ HACK;
       ],
       State::NEUTRAL,
     )
-    ->inState(State::MINUS, dict[$digit => State::IN_NUMBER])
+    ->inState(
+      State::MINUS,
+      dict[
+        $non_zero_digit => State::IN_NUMBER,
+        '0' => State::ZERO,
+      ],
+    )
     ->inState(State::PERIOD, dict[$digit => State::IN_NUMBER])
+    ->inState(
+      State::ZERO,
+      dict[
+        '.' => State::PERIOD,
+        'eE' => State::IN_NUMBER,
+        $non_zero_digit => State::INVALID,
+      ],
+      State::NEUTRAL,
+    )
     ->inState(State::INVALID, dict[], State::INVALID)
     ->generate();
 

@@ -8,6 +8,7 @@ enum State: int as int {
   MINUS = 3;
   IN_NUMBER = 4;
   PERIOD = 5;
-  INITIAL = 6;
-  INVALID = 7;
+  ZERO = 6;
+  INITIAL = 7;
+  INVALID = 8;
 }
