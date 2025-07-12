@@ -1,0 +1,12 @@
+services:
+  hhvm:
+    container_name: theodore-json-post-deserialize-container
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - type: bind
+        source: .
+        target: /mnt/project
+    ports:
+      - 48566:10641

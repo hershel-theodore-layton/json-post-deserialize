@@ -1,0 +1,23 @@
+{
+  "name": "hershel-theodore-layton/json-post-deserialize",
+  "description": "A fast to run verification to run after json_decode()",
+  "license": "MIT",
+  "require": {
+    "hhvm": "^4.102"
+  },
+  "require-dev": {
+    "hhvm/hhvm-autoload": "^3.2",
+    "hhvm/hsl-experimental": "^4",
+    "hershel-theodore-layton/test-chain": "<1",
+    "hershel-theodore-layton/expect": "<1"
+  },
+  "scripts": {
+    "post-install-cmd": [".github/workflows/prepare-environment.sh"],
+    "post-update-cmd": [".github/workflows/prepare-environment.sh"]
+  },
+  "config": {
+    "allow-plugins": {
+      "hhvm/hhvm-autoload": true
+    }
+  }
+}
