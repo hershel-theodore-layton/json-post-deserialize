@@ -70,18 +70,12 @@ async function usage_async(
         'formfeed_after_number' => tuple(null, "[1\f]"),
       ],
       ($_, $json)[defaults] ==> {
-        // Form feeds shouldn't be allowed whitespace, but hhvm
-        // allows them. The test suite did not include an example
+        // Form feeds shouldn't be allowed whitespace, but older
+        // versions of hhvm allow then where decoding to stdClass.
+        // The test suite did not include an example
         // of `\f` after an number that wasn't invalid for some
         // other reason, such as leading form feeds.
-        \var_dump(vec[
-          \HHVM_VERSION_ID,
-          $err_of($json, true),
-          $err_of($json, false),
-        ]);
-        expect($err_of($json, true))->toEqual(
-          \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
-        );
+        expect($err_of($json, true))->toBeNull();
         expect($err_of($json, false))->toEqual(
           \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
         );
