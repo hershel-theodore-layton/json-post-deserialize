@@ -27,7 +27,7 @@ async function usage_async(
   $err_of = ($json, bool $assoc)[] ==> {
     $error = null;
     \json_decode_with_error($json, inout $error, $assoc);
-    return $error;
+    return $error is null ? null : $error[0];
   };
 
   concurrent {
@@ -74,8 +74,12 @@ async function usage_async(
         // allows them. The test suite did not include an example
         // of `\f` after an number that wasn't invalid for some
         // other reason, such as leading form feeds.
-        expect($err_of($json, true))->toBeNonnull();
-        expect($err_of($json, false))->toBeNonnull();
+        expect($err_of($json, true))->toEqual(
+          \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
+        );
+        expect($err_of($json, false))->toEqual(
+          \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
+        );
         expect(quick_reject($json))->toEqual(Result::SYNTAX_ERROR);
       },
     )
