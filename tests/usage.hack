@@ -64,6 +64,22 @@ async function usage_async(
       },
     )
     ->testWith2Params(
+      'form feed after a number',
+      ()[] ==> dict[
+        'formfeed_after_zero' => tuple(null, "[0\f]"),
+        'formfeed_after_number' => tuple(null, "[1\f]"),
+      ],
+      ($_, $json)[] ==> {
+        // Form feeds shouldn't be allowed whitespace, but hhvm
+        // allows them. The test suite did not include an example
+        // of `\f` after an number that wasn't invalid for some
+        // other reason, such as leading form feeds.
+        expect($err_of($json, true))->toBeNonnull();
+        expect($err_of($json, false))->toBeNonnull();
+        expect(quick_reject($json))->toEqual(Result::SYNTAX_ERROR);
+      },
+    )
+    ->testWith2Params(
       'indeterminate',
       ()[] ==> $indeterminate,
       ($path, $json) ==> {

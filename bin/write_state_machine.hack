@@ -25,6 +25,10 @@ HACK;
   // ','    Element separator for object and array.
   // ':'    Key value separator for object.
   $structures = '{}[],:';
+  // '}]' close an object/array.
+  // ','  closes a array element of object key-value pair.
+  // There is no need to include ':', since numbers aren't valid object keys.
+  $closing_structures = '}],';
 
   $table = (new StateMachineBuilder())
     ->inState(
@@ -68,8 +72,10 @@ HACK;
         $digit => State::IN_NUMBER,
         '.' => State::PERIOD,
         'eE+-' => State::IN_NUMBER,
+        $whitespace => State::NEUTRAL,
+        $closing_structures => State::NEUTRAL,
       ],
-      State::NEUTRAL,
+      State::INVALID,
     )
     ->inState(
       State::MINUS,
@@ -85,9 +91,10 @@ HACK;
       dict[
         '.' => State::PERIOD,
         'eE' => State::IN_NUMBER,
-        $non_zero_digit => State::INVALID,
+        $whitespace => State::NEUTRAL,
+        $closing_structures => State::NEUTRAL,
       ],
-      State::NEUTRAL,
+      State::INVALID,
     )
     ->inState(State::INVALID, dict[], State::INVALID)
     ->generate();
