@@ -27,15 +27,19 @@ HACK;
   $structures = '{}[],:';
 
   $table = (new StateMachineBuilder())
-    ->inState(State::NEUTRAL, dict[
-      $whitespace => State::NEUTRAL,
-      '"' => State::IN_STRING,
-      '-' => State::MINUS,
-      '0' => State::ZERO,
-      $non_zero_digit => State::IN_NUMBER,
-      $structures => State::NEUTRAL,
-      $constants => State::NEUTRAL,
-    ])
+    ->inState(
+      State::NEUTRAL,
+      dict[
+        $whitespace => State::NEUTRAL,
+        '"' => State::IN_STRING,
+        '-' => State::MINUS,
+        '0' => State::ZERO,
+        $non_zero_digit => State::IN_NUMBER,
+        $structures => State::NEUTRAL,
+        $constants => State::NEUTRAL,
+      ],
+      State::INVALID,
+    )
     ->inState(
       State::INITIAL,
       dict[
@@ -47,6 +51,7 @@ HACK;
         $structures => State::NEUTRAL,
         $constants => State::NEUTRAL,
       ],
+      State::INVALID,
     )
     ->inState(
       State::IN_STRING,
@@ -72,8 +77,9 @@ HACK;
         $non_zero_digit => State::IN_NUMBER,
         '0' => State::ZERO,
       ],
+      State::INVALID,
     )
-    ->inState(State::PERIOD, dict[$digit => State::IN_NUMBER])
+    ->inState(State::PERIOD, dict[$digit => State::IN_NUMBER], State::INVALID)
     ->inState(
       State::ZERO,
       dict[
@@ -95,7 +101,7 @@ final class StateMachineBuilder {
   public function inState(
     State $state,
     dict<string, State> $transitions,
-    State $else = State::INVALID,
+    State $else,
   )[write_props]: this {
     $actions = Vec\fill(256, $else);
 
