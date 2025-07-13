@@ -68,6 +68,7 @@ async function usage_async(
       ()[] ==> dict[
         'formfeed_after_zero' => tuple(null, "[0\f]"),
         'formfeed_after_number' => tuple(null, "[1\f]"),
+        'formfeed_after_period' => tuple(null, "[1.\f]"),
       ],
       ($_, $json)[defaults] ==> {
         // Form feeds shouldn't be allowed whitespace, but older
