@@ -71,14 +71,14 @@ async function usage_async(
       ],
       ($_, $json)[defaults] ==> {
         // Form feeds shouldn't be allowed whitespace, but older
-        // versions of hhvm allow then where decoding to stdClass.
+        // versions of hhvm allow then where decoding to arrays.
         // The test suite did not include an example
         // of `\f` after an number that wasn't invalid for some
         // other reason, such as leading form feeds.
-        expect($err_of($json, true))->toBeNull();
-        expect($err_of($json, false))->toEqual(
+        expect($err_of($json, true))->toEqual(
           \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
         );
+        expect($err_of($json, false))->toEqual(\JSON_ERROR_CTRL_CHAR);
         expect(quick_reject($json))->toEqual(Result::SYNTAX_ERROR);
       },
     )
