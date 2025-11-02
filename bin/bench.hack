@@ -53,7 +53,7 @@ IMPORTANT;
   $should_parse = $mode === 'both' || $mode === 'parse';
   $should_reject = $mode === 'both' || $mode === 'reject';
 
-  $json = \file_get_contents($cache_file);
+  $json = \file_get_contents($cache_file) as string;
 
   $error = null;
   $parsed = dict[];
@@ -87,7 +87,7 @@ IMPORTANT;
     "%s(%s, %s, %s) %gkB of JSON at %04d MB/s\n",
     $mode,
     $error is null ? 'OK' : $error[1],
-    \gettype($parsed),
+    \gettype($parsed) as string,
     Result::getNames()[$result],
     $size_in_kb,
     (int)($size_in_mb / $time_in_seconds),

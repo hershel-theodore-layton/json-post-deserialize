@@ -173,7 +173,7 @@ final class StateMachineBuilder {
     }
 
     $_error = null;
-    return \json_encode_with_error(\chr($char), inout $_error)
+    return \json_encode_with_error(\chr($char), inout $_error) as string
       |> Str\trim($$, '"');
   }
 }

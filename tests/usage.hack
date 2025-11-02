@@ -10,9 +10,9 @@ async function usage_async(
   TestChain\Chain $chain,
 )[defaults]: Awaitable<TestChain\Chain> {
   $read_dir = async $dir ==> await Vec\map_async(
-    \glob($dir.'/*'),
+    \glob($dir.'/*') as vec<_>,
     async $path ==> {
-      $file = File\open_read_only($path);
+      $file = File\open_read_only($path as string);
       using $file->closeWhenDisposed();
       using $file->tryLockx(File\LockType::SHARED);
       return tuple(
