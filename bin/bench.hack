@@ -9,7 +9,7 @@ use function HTL\Pragma\pragma;
 <<__EntryPoint>>
 async function download_async()[defaults]: Awaitable<void> {
   $autoloader = __DIR__.'/../vendor/autoload.hack';
-  if (HH\could_include($autoloader)) {
+  if (HH\could_include($autoloader) && !HH\autoload_is_native()) {
     require_once $autoloader;
     new \ReflectionFunction('Facebook\AutoloadMap\initialize') |> $$->invoke();
   }
