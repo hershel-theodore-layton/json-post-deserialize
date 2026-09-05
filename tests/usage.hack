@@ -44,7 +44,7 @@ async function usage_async(
         // If the document is valid, assoc and non-assoc will not error. 
         expect($err_of($json, true))->toBeNull();
         expect($err_of($json, false))->toBeNull();
-        // quick_reject will not reject valid json.
+        // quick_reject will not reject valid JSON.
         expect(quick_reject($json))->toEqual(Result::OK);
       },
     )
@@ -71,10 +71,10 @@ async function usage_async(
         'formfeed_after_period' => tuple(null, "[1.\f]"),
       ],
       ($_, $json)[defaults] ==> {
-        // Form feeds shouldn't be allowed whitespace, but older
-        // versions of hhvm allow then where decoding to arrays.
+        // Form feeds shouldn't be allowed as whitespace, but older
+        // versions of HHVM allow them when decoding to arrays.
         // The test suite did not include an example
-        // of `\f` after an number that wasn't invalid for some
+        // of `\f` after a number that wasn't invalid for some
         // other reason, such as leading form feeds.
         expect($err_of($json, true))->toEqual(
           \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,

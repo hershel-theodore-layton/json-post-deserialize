@@ -30,8 +30,8 @@ $file_url
 You can check the license of the repository here:
 https://github.com/simdjson/simdjson/blob/master/LICENSE
 The authors of simdjson use this file as a benchmark.
-The file is complex enough to be tough to parse and validate, but very realisitic.
-I did not create a specially crafted json file for this benchmark. https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number.
+The file is complex enough to be tough to parse and validate, but very realistic.
+I did not create a specially crafted JSON file for this benchmark. https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number.
 I do not claim that the authors of simdjson have licensed this file correctly.
 If downloading or benchmarking with this file makes you uncomfortable, please exit this application now.
 You can benchmark using a file you provide by placing the file at:
@@ -41,7 +41,7 @@ $cache_file
 
 IMPORTANT;
 
-    \readline('Press [enter] to download twitter.json from github.');
+    \readline('Press [enter] to download twitter.json from GitHub.');
     \file_put_contents($cache_file, await Asio\curl_exec($file_url));
   }
 

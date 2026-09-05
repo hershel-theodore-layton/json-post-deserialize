@@ -7,7 +7,7 @@ This repository was created as an appendix to the article [Parsing JSON is a Min
 
 **/test\_parsing/**
 
-The name of these files tell if their contents should be accepted or rejected.
+The names of these files tell whether their contents should be accepted or rejected.
 
 - `y_` content must be accepted by parsers
 - `n_` content must be rejected by parsers

@@ -23,10 +23,10 @@ HACK;
   $constants = 'truefalsnu';
   // '{}[]' Start and end of object/array.
   // ','    Element separator for object and array.
-  // ':'    Key value separator for object.
+  // ':'    Key-value separator for object.
   $structures = '{}[],:';
   // '}]' close an object/array.
-  // ','  closes a array element of object key-value pair.
+  // ','  closes an array element of object key-value pair.
   // There is no need to include ':', since numbers aren't valid object keys.
   $closing_structures = '}],';
 

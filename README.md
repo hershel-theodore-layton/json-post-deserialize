@@ -7,7 +7,7 @@ _A fast to run verification to run after json_decode()_
 `\json_decode()` can parse invalid JSON. If you want to
 store the JSON and expect to be able to parse it in the
 future, you should check it is not invalid JSON first.
-Future versions of hhvm might not parse invalid JSON
+Future versions of HHVM might not parse invalid JSON
 the same way. Other programming environments, like Python,
 Go, or JavaScript certainly don't.
 
@@ -26,5 +26,5 @@ gets past `\json_decode_with_error()`.
 There is no function accessible to Hack that can validate
 a JSON document. If you want to call a real JSON parser,
 you'd need to call an external process. The overhead of
-copying the json string to the external process outweighs
+copying the JSON string to the external process outweighs
 the cost of the hot loop in `quick_reject()`.
