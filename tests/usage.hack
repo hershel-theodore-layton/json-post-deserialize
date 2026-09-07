@@ -4,13 +4,15 @@ namespace HTL\JsonCheck;
 use namespace HH\Lib\{C, Dict, File, Str, Vec};
 use namespace HTL\TestChain;
 use function HTL\Expect\expect;
+use function glob, json_decode_with_error;
+use const HHVM_VERSION_ID, JSON_ERROR_CTRL_CHAR;
 
 <<TestChain\Discover>>
 async function usage_async(
   TestChain\Chain $chain,
 )[defaults]: Awaitable<TestChain\Chain> {
   $read_dir = async $dir ==> await Vec\map_async(
-    \glob($dir.'/*') as vec<_>,
+    glob($dir.'/*') as vec<_>,
     async $path ==> {
       $file = File\open_read_only($path as string);
       using $file->closeWhenDisposed();
@@ -26,7 +28,7 @@ async function usage_async(
 
   $err_of = ($json, bool $assoc)[] ==> {
     $error = null;
-    \json_decode_with_error($json, inout $error, $assoc);
+    json_decode_with_error($json, inout $error, $assoc);
     return $error is null ? null : $error[0];
   };
 
@@ -77,9 +79,9 @@ async function usage_async(
         // of `\f` after a number that wasn't invalid for some
         // other reason, such as leading form feeds.
         expect($err_of($json, true))->toEqual(
-          \HHVM_VERSION_ID >= 414000 ? \JSON_ERROR_CTRL_CHAR : null,
+          HHVM_VERSION_ID >= 414000 ? JSON_ERROR_CTRL_CHAR : null,
         );
-        expect($err_of($json, false))->toEqual(\JSON_ERROR_CTRL_CHAR);
+        expect($err_of($json, false))->toEqual(JSON_ERROR_CTRL_CHAR);
         expect(quick_reject($json))->toEqual(Result::SYNTAX_ERROR);
       },
     )

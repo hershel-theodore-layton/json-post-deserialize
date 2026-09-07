@@ -1,6 +1,10 @@
 /** json-post-deserialize is MIT licensed, see /LICENSE. */
 namespace HTL\JsonCheck\_Private;
 
+use type HTL\Pragma\Pragmas;
+
+<<file: Pragmas(vec['PhaLinters', 'digest:2625b164a753018740e9'])>>
+
 const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   NEUTRAL \x00
   State::INVALID, //   NEUTRAL \x01

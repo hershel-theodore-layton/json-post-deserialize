@@ -1,14 +1,19 @@
 /** json-post-deserialize is MIT licensed, see /LICENSE. */
 namespace HTL\JsonCheck;
 
-use namespace HH\Lib\{C, Dict, IO, Math, Str, Vec};
+use namespace HH\Lib\{C, Dict, File, IO, Math, Str, Vec};
 use type HTL\JsonCheck\_Private\State;
+use function escapeshellarg, exec, shell_exec;
 
 <<__EntryPoint>>
 async function write_state_machine_async()[defaults]: Awaitable<void> {
   $code = <<<'HACK'
 /** json-post-deserialize is MIT licensed, see /LICENSE. */
 namespace HTL\JsonCheck\_Private;
+
+use type HTL\Pragma\Pragmas;
+
+<<file: Pragmas(vec['PhaLinters', 'digest:'])>>
 
 const vec<State> STATE_MACHINE = vec[
 @here
@@ -99,7 +104,30 @@ HACK;
     ->inState(State::INVALID, dict[], State::INVALID)
     ->generate();
 
-  await IO\request_output()->writeAllAsync(Str\replace($code, '@here', $table));
+  using $temporary_file = File\temporary_file();
+  $file = $temporary_file->getHandle();
+  $path = $file->getPath();
+  await $file->writeAllAsync(Str\replace($code, '@here', $table));
+  $formatted = shell_exec('hackfmt < '.escapeshellarg($path)) as string;
+  $file->seek(0);
+  $file->truncate();
+  await $file->writeAllAsync($formatted);
+  $output = vec[];
+  $status = 0;
+  exec(
+    escapeshellarg(
+      __DIR__.
+      '/../vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/pha-sign-hack-source.sh',
+    ).
+    ' '.
+    escapeshellarg($path),
+    inout $output,
+    inout $status,
+  );
+  invariant($status === 0, 'Could not sign generated state machine');
+  $file->seek(0);
+  $signed = await $file->readAllAsync();
+  await IO\request_output()->writeAllAsync($signed);
 }
 
 final class StateMachineBuilder {

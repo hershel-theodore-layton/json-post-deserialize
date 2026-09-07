@@ -2,6 +2,7 @@
 namespace HTL\JsonCheck;
 
 use namespace HH\Lib\Str;
+use function ord;
 
 /**
  * Returns `NO_DOCUMENT` if `$json` does not contain a JSON document.
@@ -22,7 +23,7 @@ function quick_reject(string $json)[]: Result {
   $state = _Private\State::INITIAL;
 
   for ($i = 0; $i < $length; ++$i) {
-    $state = _Private\STATE_MACHINE[$state * 256 + \ord($json[$i])];
+    $state = _Private\STATE_MACHINE[$state * 256 + ord($json[$i])];
   }
 
   switch ($state) {
