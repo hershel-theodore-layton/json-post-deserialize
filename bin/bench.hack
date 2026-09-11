@@ -4,7 +4,10 @@ namespace HTL\JsonCheck;
 use namespace HH;
 use namespace HH\Asio;
 use namespace HH\Lib\{Str, Vec};
+use type HTL\Pragma\Pragmas;
 use function HTL\Pragma\pragma;
+
+<<file: Pragmas(vec['PhaLinters', 'fixme:autoload_your_code'])>>
 
 <<__EntryPoint>>
 async function download_async()[defaults]: Awaitable<void> {
