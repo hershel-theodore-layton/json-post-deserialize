@@ -3,7 +3,8 @@ namespace HTL\JsonCheck;
 
 use namespace HH;
 use namespace HH\Asio;
-use namespace HH\Lib\{Str, Vec};
+use namespace HH\Lib\{C, Str};
+use type InvalidArgumentException;
 use type HTL\Pragma\Pragmas;
 use function HTL\Pragma\pragma;
 
@@ -16,6 +17,20 @@ async function download_async()[defaults]: Awaitable<void> {
     require_once $autoloader;
     // Abuse the poor typing of array_reduce to invoke a dynamic callable without hh_client noticing
     \array_reduce(vec[null], HH\dynamic_fun('Facebook\AutoloadMap\initialize'));
+  }
+
+  $query = HH\global_get('_GET') as dict<_, _>;
+  $argv = HH\global_get('argv');
+  $mode = C\contains_key($query, 'mode')
+    ? $query['mode']
+    : ($argv is vec<_> ? idx($argv, 1, 'both') : 'both');
+
+  if (
+    !($mode is string) || !C\contains(keyset['parse', 'reject', 'both'], $mode)
+  ) {
+    throw new InvalidArgumentException(
+      'Benchmark mode must be parse, reject, or both.',
+    );
   }
 
   $cache_file = __DIR__.'/benchmark.json';
@@ -48,11 +63,6 @@ IMPORTANT;
     \readline('Press [enter] to download twitter.json from GitHub.');
     \file_put_contents($cache_file, await Asio\curl_exec($file_url));
   }
-
-  $mode = \HH\global_get('_GET') ?? \HH\global_get('argv')
-    |> $$ is vec<_> ? Vec\drop($$, 1) : vec($$ as dict<_, _>)
-    |> $$[0] ?? 'both'
-    |> $$ as string;
 
   $should_parse = $mode === 'both' || $mode === 'parse';
   $should_reject = $mode === 'both' || $mode === 'reject';
