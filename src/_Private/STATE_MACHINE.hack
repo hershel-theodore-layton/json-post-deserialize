@@ -3,7 +3,7 @@ namespace HTL\JsonCheck\_Private;
 
 use type HTL\Pragma\Pragmas;
 
-<<file: Pragmas(vec['PhaLinters', 'digest:2625b164a753018740e9'])>>
+<<file: Pragmas(vec['PhaLinters', 'digest:777aa9facddb9f3d75b4'])>>
 
 const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   NEUTRAL \x00
@@ -40,12 +40,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   NEUTRAL \x1f
   State::NEUTRAL, //   NEUTRAL SPACE
   State::INVALID, //   NEUTRAL !
-  State::IN_STRING, // NEUTRAL \
+  State::IN_STRING, // NEUTRAL "
   State::INVALID, //   NEUTRAL #
   State::INVALID, //   NEUTRAL $
   State::INVALID, //   NEUTRAL %
   State::INVALID, //   NEUTRAL &
-  State::INVALID, //   NEUTRAL "
+  State::INVALID, //   NEUTRAL '
   State::INVALID, //   NEUTRAL (
   State::INVALID, //   NEUTRAL )
   State::INVALID, //   NEUTRAL *
@@ -296,12 +296,12 @@ const vec<State> STATE_MACHINE = vec[
   State::IN_STRING, // IN_STRING \x1f
   State::IN_STRING, // IN_STRING SPACE
   State::IN_STRING, // IN_STRING !
-  State::NEUTRAL, //   IN_STRING \
+  State::NEUTRAL, //   IN_STRING "
   State::IN_STRING, // IN_STRING #
   State::IN_STRING, // IN_STRING $
   State::IN_STRING, // IN_STRING %
   State::IN_STRING, // IN_STRING &
-  State::IN_STRING, // IN_STRING "
+  State::IN_STRING, // IN_STRING '
   State::IN_STRING, // IN_STRING (
   State::IN_STRING, // IN_STRING )
   State::IN_STRING, // IN_STRING *
@@ -552,12 +552,12 @@ const vec<State> STATE_MACHINE = vec[
   State::IN_STRING, // ESCAPE \x1f
   State::IN_STRING, // ESCAPE SPACE
   State::IN_STRING, // ESCAPE !
-  State::IN_STRING, // ESCAPE \
+  State::IN_STRING, // ESCAPE "
   State::IN_STRING, // ESCAPE #
   State::IN_STRING, // ESCAPE $
   State::IN_STRING, // ESCAPE %
   State::IN_STRING, // ESCAPE &
-  State::IN_STRING, // ESCAPE "
+  State::IN_STRING, // ESCAPE '
   State::IN_STRING, // ESCAPE (
   State::IN_STRING, // ESCAPE )
   State::IN_STRING, // ESCAPE *
@@ -808,12 +808,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   MINUS \x1f
   State::INVALID, //   MINUS SPACE
   State::INVALID, //   MINUS !
-  State::INVALID, //   MINUS \
+  State::INVALID, //   MINUS "
   State::INVALID, //   MINUS #
   State::INVALID, //   MINUS $
   State::INVALID, //   MINUS %
   State::INVALID, //   MINUS &
-  State::INVALID, //   MINUS "
+  State::INVALID, //   MINUS '
   State::INVALID, //   MINUS (
   State::INVALID, //   MINUS )
   State::INVALID, //   MINUS *
@@ -1064,12 +1064,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   IN_NUMBER \x1f
   State::NEUTRAL, //   IN_NUMBER SPACE
   State::INVALID, //   IN_NUMBER !
-  State::INVALID, //   IN_NUMBER \
+  State::INVALID, //   IN_NUMBER "
   State::INVALID, //   IN_NUMBER #
   State::INVALID, //   IN_NUMBER $
   State::INVALID, //   IN_NUMBER %
   State::INVALID, //   IN_NUMBER &
-  State::INVALID, //   IN_NUMBER "
+  State::INVALID, //   IN_NUMBER '
   State::INVALID, //   IN_NUMBER (
   State::INVALID, //   IN_NUMBER )
   State::INVALID, //   IN_NUMBER *
@@ -1320,12 +1320,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   PERIOD \x1f
   State::INVALID, //   PERIOD SPACE
   State::INVALID, //   PERIOD !
-  State::INVALID, //   PERIOD \
+  State::INVALID, //   PERIOD "
   State::INVALID, //   PERIOD #
   State::INVALID, //   PERIOD $
   State::INVALID, //   PERIOD %
   State::INVALID, //   PERIOD &
-  State::INVALID, //   PERIOD "
+  State::INVALID, //   PERIOD '
   State::INVALID, //   PERIOD (
   State::INVALID, //   PERIOD )
   State::INVALID, //   PERIOD *
@@ -1576,12 +1576,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   ZERO \x1f
   State::NEUTRAL, //   ZERO SPACE
   State::INVALID, //   ZERO !
-  State::INVALID, //   ZERO \
+  State::INVALID, //   ZERO "
   State::INVALID, //   ZERO #
   State::INVALID, //   ZERO $
   State::INVALID, //   ZERO %
   State::INVALID, //   ZERO &
-  State::INVALID, //   ZERO "
+  State::INVALID, //   ZERO '
   State::INVALID, //   ZERO (
   State::INVALID, //   ZERO )
   State::INVALID, //   ZERO *
@@ -1832,12 +1832,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   INITIAL \x1f
   State::INITIAL, //   INITIAL SPACE
   State::INVALID, //   INITIAL !
-  State::IN_STRING, // INITIAL \
+  State::IN_STRING, // INITIAL "
   State::INVALID, //   INITIAL #
   State::INVALID, //   INITIAL $
   State::INVALID, //   INITIAL %
   State::INVALID, //   INITIAL &
-  State::INVALID, //   INITIAL "
+  State::INVALID, //   INITIAL '
   State::INVALID, //   INITIAL (
   State::INVALID, //   INITIAL )
   State::INVALID, //   INITIAL *
@@ -2088,12 +2088,12 @@ const vec<State> STATE_MACHINE = vec[
   State::INVALID, //   INVALID \x1f
   State::INVALID, //   INVALID SPACE
   State::INVALID, //   INVALID !
-  State::INVALID, //   INVALID \
+  State::INVALID, //   INVALID "
   State::INVALID, //   INVALID #
   State::INVALID, //   INVALID $
   State::INVALID, //   INVALID %
   State::INVALID, //   INVALID &
-  State::INVALID, //   INVALID "
+  State::INVALID, //   INVALID '
   State::INVALID, //   INVALID (
   State::INVALID, //   INVALID )
   State::INVALID, //   INVALID *

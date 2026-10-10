@@ -168,20 +168,6 @@ final class StateMachineBuilder {
       return 'SPACE';
     }
 
-    if ($char === 0x27) {
-      return '"';
-    }
-
-    if ($char === 0x2f) {
-      return '/';
-    }
-
-    if ($char === 0x5c) {
-      return '\\';
-    }
-
-    $_error = null;
-    return \json_encode_with_error(\chr($char), inout $_error) as string
-      |> Str\trim($$, '"');
+    return \chr($char);
   }
 }
