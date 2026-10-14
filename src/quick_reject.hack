@@ -9,14 +9,10 @@ use function ord;
  * Returns `SYNTAX_ERROR` for a subset of syntax errors which overlaps
  *   with the set of syntax errors that get past `\json_decode_with_error()`.
  * Returns `OK` for all other inputs.
- * 
- * If `quick_reject()` returns `OK`, that does not mean that
- * your JSON document is guaranteed to be valid. It just means
- * that the document is not invalid in a way that can be decoded
- * by `\json_decode_with_error()`. This relaxed requirement makes the
- * `quick_reject()` function implementation a lot simpler and
- * means it does not need to do work that `\json_decode_with_error()`
- * just did.
+ *
+ * This is not a standalone JSON validator: `OK` does not guarantee validity.
+ * Check both the decoder error and this result.
+ * This limited scope avoids repeating work already done by the decoder.
  */
 function quick_reject(string $json)[]: Result {
   $length = Str\length($json);

@@ -66,6 +66,31 @@ async function usage_async(
       },
     )
     ->testWith2Params(
+      'permissive decoding accepts invalid syntax',
+      ()[] ==> dict[
+        'trailing array comma' => tuple(null, '[1,]'),
+        'unquoted object key' => tuple(null, '{true:1}'),
+        'trailing object comma' => tuple(null, '{"a":1,}'),
+      ],
+      ($_, $json)[] ==> {
+        foreach (vec[true, false] as $assoc) {
+          $error = null;
+          json_decode_with_error($json, inout $error, $assoc, 512, 0);
+          expect($error)->toBeNonnull();
+          json_decode_with_error(
+            $json,
+            inout $error,
+            $assoc,
+            512,
+            \JSON_FB_LOOSE,
+          );
+          expect($error)->toBeNull();
+        }
+        // The decoder is essential: quick_reject alone accepts these inputs.
+        expect(quick_reject($json))->toEqual(Result::OK);
+      },
+    )
+    ->testWith2Params(
       'form feed after a number',
       ()[] ==> dict[
         'formfeed_after_zero' => tuple(null, "[0\f]"),

@@ -13,13 +13,24 @@ Go, or JavaScript certainly don't.
 
 ## How?
 
-After calling `\json_decode_with_error()`, you should check the
-`$error` variable. If this is `null`, you might still have
-parsed invalid JSON. `\HTL\JsonCheck\quick_reject(string $json)`
-will let you know that this happened. `quick_reject()` does
-not return an error for many invalid JSON documents, but
-it does return an error for every invalid JSON document that
-gets past `\json_decode_with_error()`.
+Use `\json_decode_with_error()`, then check both its error and
+`\HTL\JsonCheck\quick_reject()`:
+
+```hack
+use namespace HTL\JsonCheck;
+use function json_decode_with_error;
+use type InvalidArgumentException;
+
+$error = null;
+$decoded = json_decode_with_error($json, inout $error, true);
+if (
+  $error is nonnull ||
+  JsonCheck\quick_reject($json) !== JsonCheck\Result::OK
+) {
+  throw new InvalidArgumentException('Invalid JSON document.');
+}
+// Use $decoded or store $json only after both checks succeed.
+```
 
 ## Why do this in Hack?
 
