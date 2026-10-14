@@ -5,7 +5,7 @@ use namespace HH\Lib\{C, Dict, File, Str, Vec};
 use namespace HTL\TestChain;
 use function HTL\Expect\expect;
 use function glob, json_decode_with_error;
-use const HHVM_VERSION_ID, JSON_ERROR_CTRL_CHAR;
+use const HHVM_VERSION_ID, JSON_ERROR_CTRL_CHAR, JSON_FB_LOOSE;
 
 <<TestChain\Discover>>
 async function usage_async(
@@ -82,7 +82,7 @@ async function usage_async(
             inout $error,
             $assoc,
             512,
-            \JSON_FB_LOOSE,
+            JSON_FB_LOOSE,
           );
           expect($error)->toBeNull();
         }
